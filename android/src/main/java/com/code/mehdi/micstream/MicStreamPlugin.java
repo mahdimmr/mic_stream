@@ -40,7 +40,7 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
     private int SAMPLE_RATE = 16000;
     private int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
     private int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_8BIT;
-    private int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
+    private int BUFFER_SIZE = 735;
 
     // Runnable management
     private volatile boolean record = false;
@@ -153,7 +153,7 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
         // Set parameters, if available
         switch(config.size()) {
             case 5:
-            System.out.println("BUFFER_SIZE SET -- ");
+                System.out.println("BUFFER_SIZE SET -- ");
                 BUFFER_SIZE = config.get(4);
             case 4:
                 AUDIO_FORMAT = config.get(3);
@@ -176,6 +176,9 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
 
         // Try to initialize and start the recorder
         recorder = new AudioRecord(AUDIO_SOURCE, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, BUFFER_SIZE);
+        System.out.println("BUFFER_SIZE");
+        System.out.println(BUFFER_SIZE);
+
         if (recorder.getState() != AudioRecord.STATE_INITIALIZED) eventSink.error("-1", "PlatformError", null);
         recorder.startRecording();
 
