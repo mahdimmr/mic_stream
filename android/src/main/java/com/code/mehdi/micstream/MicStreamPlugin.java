@@ -153,6 +153,7 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
         // Set parameters, if available
         switch(config.size()) {
             case 5:
+            System.out.println("BUFFER_SIZE SET -- ");
                 BUFFER_SIZE = config.get(4);
             case 4:
                 AUDIO_FORMAT = config.get(3);
@@ -164,8 +165,8 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
                 AUDIO_SOURCE = config.get(0);
             default:
                 try {
-                    System.out.println("Invalid grade");
-                    BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
+                    System.out.println("Invalid CASE -- ");
+                    // BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
                 } catch (Exception e) {
                     eventSink.error("-3", "Invalid AudioRecord parameters", e);
                 }
