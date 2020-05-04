@@ -1,4 +1,4 @@
-group 'com.code.aaron.micstream'
+group 'com.code.mehdi.micstream'
 version '1.0'
 
 buildscript {

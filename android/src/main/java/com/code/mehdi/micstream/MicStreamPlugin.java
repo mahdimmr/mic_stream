@@ -1,4 +1,4 @@
-package com.code.aaron.micstream;
+package com.code.mehdi.micstream;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 @TargetApi(16)  // Should be unnecessary, but isn't // fix build.gradle...?
 public class MicStreamPlugin implements EventChannel.StreamHandler {
-    private static final String MICROPHONE_CHANNEL_NAME = "aaron.code.com/mic_stream";
+    private static final String MICROPHONE_CHANNEL_NAME = "mehdi.code.com/mic_stream";
 
     /**
      * Plugin registration
@@ -152,6 +152,8 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
 
         // Set parameters, if available
         switch(config.size()) {
+            case 5:
+                BUFFER_SIZE = config.get(4);
             case 4:
                 AUDIO_FORMAT = config.get(3);
             case 3:
@@ -162,6 +164,7 @@ public class MicStreamPlugin implements EventChannel.StreamHandler {
                 AUDIO_SOURCE = config.get(0);
             default:
                 try {
+                    System.out.println("Invalid grade");
                     BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
                 } catch (Exception e) {
                     eventSink.error("-3", "Invalid AudioRecord parameters", e);

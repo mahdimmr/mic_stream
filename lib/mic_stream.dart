@@ -18,8 +18,9 @@ const int _DEFAULT_SAMPLE_RATE = 16000;
 
 const int _MIN_SAMPLE_RATE = 1;
 const int _MAX_SAMPLE_RATE = 100000;
+const int _DEFAULT_BUFFER_SIZE = 735;
 
-const EventChannel _microphoneEventChannel = EventChannel('aaron.code.com/mic_stream');
+const EventChannel _microphoneEventChannel = EventChannel('mehdi.code.com/mic_stream');
 
 Permissions _permission;
 Stream<dynamic> _microphone;
@@ -32,7 +33,13 @@ Future<bool> get permissionStatus async {
 }
 
 // This function sets up a connection to the java backend (if not already available) and yields the elements in the stream
-Stream<List<int>> microphone({AudioSource audioSource: _DEFAULT_AUDIO_SOURCE, int sampleRate: _DEFAULT_SAMPLE_RATE, ChannelConfig channelConfig: _DEFAULT_CHANNELS_CONFIG, AudioFormat audioFormat: _DEFAULT_AUDIO_FORMAT}) async* {
+Stream<List<int>> microphone({
+  AudioSource audioSource: _DEFAULT_AUDIO_SOURCE,
+  int sampleRate: _DEFAULT_SAMPLE_RATE,
+  ChannelConfig channelConfig: _DEFAULT_CHANNELS_CONFIG,
+  AudioFormat audioFormat: _DEFAULT_AUDIO_FORMAT,
+  int bufferSize: _DEFAULT_BUFFER_SIZE
+}) async* {
   if (sampleRate < _MIN_SAMPLE_RATE || sampleRate > _MAX_SAMPLE_RATE) throw (RangeError.range(sampleRate, _MIN_SAMPLE_RATE, _MAX_SAMPLE_RATE));
   if (!(await permissionStatus)) throw (PlatformException);
   if (_microphone == null) _microphone = _microphoneEventChannel

@@ -1,4 +1,4 @@
-package com.code.aaron.micstreamexample;
+package com.code.mehdi.micstreamexample;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
